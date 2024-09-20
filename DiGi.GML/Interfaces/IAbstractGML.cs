@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DiGi.GML.Interfaces
+﻿namespace DiGi.GML.Interfaces
 {
-    public interface IAbstractGML
+    public interface IAbstractGML : IFeatureMember
     {
         string? id { get; set; }
     }
