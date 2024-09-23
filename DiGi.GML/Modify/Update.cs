@@ -5,6 +5,7 @@ using System.Linq;
 using DiGi.GML.Interfaces;
 using System.Collections;
 using System;
+using DiGi.GML.Classes;
 
 namespace DiGi.GML
 {
@@ -56,7 +57,7 @@ namespace DiGi.GML
                 }
             }
 
-            List<PropertyInfo> propertyInfos = abstractGML.GetType().GetProperties()?.ToList();
+            List<PropertyInfo> propertyInfos = Query.PropertyInfos(abstractGML);
             if (propertyInfos == null || propertyInfos.Count == 0)
             {
                 return false;
@@ -114,7 +115,7 @@ namespace DiGi.GML
                                 value = Create.AbstractGML(xmlNodes_Temp[0]);
                             }
                         }
-                        else if (typeof(IEnumerable).IsAssignableFrom(type))
+                        else if (typeof(IList).IsAssignableFrom(type))
                         {
                             IList list = Activator.CreateInstance(type) as IList;
                             if (list != null)
@@ -144,5 +145,66 @@ namespace DiGi.GML
 
             return result;
         }
+
+        public static bool Update<T>(this T abstractGML_Source, T abstractGML_Destination) where T : IAbstractGML
+        {
+            if(abstractGML_Source == null || abstractGML_Destination == null)
+            {
+                return false;
+            }
+
+            List<PropertyInfo> propertyInfos = abstractGML_Destination.PropertyInfos();
+            if (propertyInfos == null || propertyInfos.Count == 0)
+            {
+                return true;
+            }
+
+            foreach(PropertyInfo propertyInfo in propertyInfos)
+            {
+                Update(abstractGML_Source, abstractGML_Destination, propertyInfo);
+            }
+
+            return true;
+        }
+
+        public static bool Update<T>(this T abstractGML_Source, T abstractGML_Destination, PropertyInfo propertyInfo)
+        {
+            if (abstractGML_Source == null || abstractGML_Source == null)
+            {
+                return false;
+            }
+
+            object value = propertyInfo.GetValue(abstractGML_Source);
+
+            if(value is IAbstractGML)
+            {
+                value = ((AbstractGML)value).Clone();
+            }
+            else if(value is string)
+            {
+
+            }
+            else if(value is IList)
+            {
+                IList list = Activator.CreateInstance(value.GetType()) as IList;
+                foreach (object @object in (IEnumerable)value) 
+                { 
+                    if(@object is IAbstractGML)
+                    {
+                        list.Add(((AbstractGML)value).Clone());
+                    }
+                    else
+                    {
+                        list.Add(@object);
+                    }
+                }
+                value = list;
+            }
+
+            propertyInfo.SetValue(abstractGML_Destination, value);
+            return true;
+        }
+
+
     }
 }

@@ -89,7 +89,7 @@ namespace DiGi.GML
                     return true;
                 }
             }
-            else if (typeof(IEnumerable).IsAssignableFrom(type_Temp))
+            else if (typeof(IList).IsAssignableFrom(type_Temp))
             {
                 if (text != null && type_Temp.GenericTypeArguments.Length != 0)
                 {  
