@@ -9,7 +9,15 @@ namespace DiGi.GML
     {
         public static string Description(this Enum @enum)
         {
-            FieldInfo fieldInfo = @enum.GetType().GetField(@enum.ToString());
+            Type type = @enum.GetType();
+
+            Type type_Temp = Nullable.GetUnderlyingType(type);
+            if(type_Temp != null)
+            {
+                type = type_Temp;
+            }
+
+            FieldInfo fieldInfo = type.GetField(@enum.ToString());
 
             DescriptionAttribute[] descriptionAttributes = fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
 

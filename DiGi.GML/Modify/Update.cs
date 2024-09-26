@@ -191,7 +191,7 @@ namespace DiGi.GML
                 { 
                     if(@object is IAbstractGML)
                     {
-                        list.Add(((AbstractGML)value).Clone());
+                        list.Add(((AbstractGML)@object).Clone());
                     }
                     else
                     {

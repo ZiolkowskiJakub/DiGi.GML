@@ -44,24 +44,26 @@ namespace DiGi.GML
 
             List<T> result = Enumerable.Repeat<T>(default, count).ToList();
 
-            Parallel.For(0, count, i => 
+            for(int i = 0; i < xmlNodeList.Count; i++)//Parallel.For(0, count, i => 
             {
                 string name = xmlNodeList[i]?.LocalName;
 
                 if (string.IsNullOrWhiteSpace(name) || name == "xml")
                 {
-                    return;
+                    //return;
+                    continue;
                 }
 
                 IAbstractGML abstractGML = Create.AbstractGML(xmlNodeList[i]);
                 if (!(abstractGML is T))
                 {
-                    return;
+                    //return;
+                    continue;
                 }
 
                 result.Add((T)abstractGML);
 
-            });
+            }//);
 
             result.RemoveAll(x => x == null);
 
