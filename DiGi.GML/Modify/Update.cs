@@ -204,7 +204,5 @@ namespace DiGi.GML
             propertyInfo.SetValue(abstractGML_Destination, value);
             return true;
         }
-
-
     }
 }
