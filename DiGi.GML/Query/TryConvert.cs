@@ -1,6 +1,7 @@
 ﻿using DiGi.GML.Interfaces;
 using System;
 using System.Collections;
+using System.Globalization;
 using System.Reflection;
 
 namespace DiGi.GML
@@ -83,7 +84,12 @@ namespace DiGi.GML
             }
             else if (type_Temp == typeof(double))
             {
-                if (double.TryParse(text, out double @double))
+                if(double.TryParse(text, NumberStyles.Any, CultureInfo.CurrentCulture, out double @double))
+                {
+                    value = nullable ? @double as double? : @double;
+                    return true;
+                }
+                else if (double.TryParse(text, NumberStyles.Any, CultureInfo.InvariantCulture, out @double))
                 {
                     value = nullable ? @double as double? : @double;
                     return true;
