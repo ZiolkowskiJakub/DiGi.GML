@@ -4,6 +4,6 @@ namespace DiGi.GML
 {
     public static partial class Settings
     {
-        public static TypeManager TypeManager { get; } = new TypeManager();
+        public static TypeManager TypeManager { get; } = Create.TypeManager();
     }
 }

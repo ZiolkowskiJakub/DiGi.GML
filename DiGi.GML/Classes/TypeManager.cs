@@ -8,7 +8,7 @@ namespace DiGi.GML.Classes
 {
     public class TypeManager
     {
-        private Dictionary<string, Type> dictionary = new Dictionary<string, Type>();
+        private Dictionary<string, Type> dictionary = null;
 
         public TypeManager() 
         {
@@ -20,6 +20,11 @@ namespace DiGi.GML.Classes
             if(string.IsNullOrWhiteSpace(name))
             {
                 return null;
+            }
+
+            if(dictionary == null)
+            {
+                dictionary = new Dictionary<string, Type>();
             }
 
             if(dictionary.TryGetValue(name, out Type type))
