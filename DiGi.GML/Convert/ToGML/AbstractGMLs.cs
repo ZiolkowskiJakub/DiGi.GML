@@ -27,15 +27,15 @@ namespace DiGi.GML
             return ToGML<T>(xmlDocument);
         }
 
-        public static List<T> ToGML<T>(Stream steam) where T : IAbstractGML
+        public static List<T> ToGML<T>(Stream stream) where T : IAbstractGML
         {
-            if (steam == null)
+            if (stream == null)
             {
                 return null;
             }
 
             XmlDocument xmlDocument = new XmlDocument();
-            xmlDocument.Load(steam);
+            xmlDocument.Load(stream);
 
             return ToGML<T>(xmlDocument);
         }
