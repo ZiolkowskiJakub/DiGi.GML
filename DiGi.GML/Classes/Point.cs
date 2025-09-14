@@ -4,6 +4,6 @@ namespace DiGi.GML.Classes
 {
     public class Point : GeometricPrimitive
     {
-        public List<double> pos { get; set; }
+        public List<double> pos { get; set; } = [];
     }
 }

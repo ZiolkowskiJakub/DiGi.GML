@@ -7,7 +7,7 @@ namespace DiGi.GML
 {
     public static partial class Query
     {
-        public static List<PropertyInfo> PropertyInfos(this IAbstractGML abstractGML)
+        public static List<PropertyInfo>? PropertyInfos(this IAbstractGML? abstractGML)
         { 
             if(abstractGML == null)
             {

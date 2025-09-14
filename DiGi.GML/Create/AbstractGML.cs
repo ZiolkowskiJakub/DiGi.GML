@@ -6,31 +6,31 @@ namespace DiGi.GML
 {
     public static partial class Create
     {
-        public static IAbstractGML AbstractGML(this XmlNode xmlNode)
+        public static IAbstractGML? AbstractGML(this XmlNode? xmlNode)
         {
             return AbstractGML<IAbstractGML>(xmlNode);
         }
 
-        public static T AbstractGML<T>(this XmlNode xmlNode) where T : IAbstractGML
+        public static T? AbstractGML<T>(this XmlNode? xmlNode) where T : IAbstractGML
         {
             if (xmlNode == null)
             {
                 return default;
             }
 
-            Type type = Settings.TypeManager.GetType(xmlNode.LocalName);
+            Type? type = Settings.TypeManager.GetType(xmlNode.LocalName);
             if (type == null)
             {
                 return default;
             }
 
-            object @object = Activator.CreateInstance(type);
-            if(!(@object is T))
+            object? @object = Activator.CreateInstance(type);
+            if(@object is not T t)
             {
                 return default;
             }
 
-            T result = (T)@object;
+            T? result = t;
 
             Modify.Update(result, xmlNode);
 

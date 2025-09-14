@@ -19,9 +19,8 @@ namespace DiGi.GML
 
             FieldInfo fieldInfo = type.GetField(@enum.ToString());
 
-            DescriptionAttribute[] descriptionAttributes = fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
 
-            if (descriptionAttributes != null && descriptionAttributes.Any())
+            if (fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false) is DescriptionAttribute[] descriptionAttributes && descriptionAttributes.Any())
             {
                 return descriptionAttributes[0].Description;
             }

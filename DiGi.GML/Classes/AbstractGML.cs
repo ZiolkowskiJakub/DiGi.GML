@@ -4,6 +4,6 @@ namespace DiGi.GML.Classes
 {
     public abstract class AbstractGML : IAbstractGML
     {
-        public string id { get; set; }
+        public string? id { get; set; }
     }
 }

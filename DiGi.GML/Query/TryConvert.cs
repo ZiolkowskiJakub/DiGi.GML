@@ -8,12 +8,12 @@ namespace DiGi.GML
 {
     public static partial class Query
     {
-        public static bool TryConvert(string text, PropertyInfo propertyInfo, out object value)
+        public static bool TryConvert(string? text, PropertyInfo? propertyInfo, out object? value)
         {
             return TryConvert(text, propertyInfo?.PropertyType, out value);
         }
 
-        public static bool TryConvert(string text, Type type, out object value)
+        public static bool TryConvert(string? text, Type? type, out object? value)
         {
             value = null;
             if (type == null)
@@ -36,7 +36,7 @@ namespace DiGi.GML
             }
             else if (type_Temp.IsEnum)
             {
-                if (TryGetEnum(text, type_Temp, out Enum @enum))
+                if (TryGetEnum(text, type_Temp, out Enum? @enum))
                 {
                     value = @enum;
                     return true;
@@ -103,12 +103,11 @@ namespace DiGi.GML
 
                     string[] texts = genericType == typeof(double) ? text.Split(' ') : text.Split('\t');
 
-                    IList list = Activator.CreateInstance(type) as IList;
-                    if (list != null)
+                    if (Activator.CreateInstance(type) is IList list)
                     {
                         foreach (string text_Temp in texts)
                         {
-                            if (TryConvert(text_Temp, genericType, out object value_Temp))
+                            if (TryConvert(text_Temp, genericType, out object? value_Temp))
                             {
                                 list.Add(value_Temp);
                             }

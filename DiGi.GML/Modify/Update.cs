@@ -17,46 +17,46 @@ namespace DiGi.GML
                 return false;
             }
 
-            Dictionary<string, List<XmlNode>> dictionary_XmlNodes = new Dictionary<string, List<XmlNode>>();
+            Dictionary<string, List<XmlNode>> dictionary_XmlNodes = [];
             if(xmlNode.HasChildNodes)
             {
                 foreach (XmlNode xmlNode_Child in xmlNode.ChildNodes)
                 {
-                    string name = xmlNode_Child?.LocalName;
+                    string? name = xmlNode_Child?.LocalName;
 
                     if (string.IsNullOrWhiteSpace(name))
                     {
                         continue;
                     }
 
-                    if (!dictionary_XmlNodes.TryGetValue(name, out List<XmlNode> xmlNodes) || xmlNodes == null)
+                    if (!dictionary_XmlNodes.TryGetValue(name!, out List<XmlNode> xmlNodes) || xmlNodes == null)
                     {
-                        xmlNodes = new List<XmlNode>();
-                        dictionary_XmlNodes[name] = xmlNodes;
+                        xmlNodes = [];
+                        dictionary_XmlNodes[name!] = xmlNodes;
                     }
 
-                    xmlNodes.Add(xmlNode_Child);
+                    xmlNodes.Add(xmlNode_Child!);
                 }
             }
 
 
-            Dictionary<string, XmlAttribute> dictionary_XmlAttribute = new Dictionary<string, XmlAttribute>();
+            Dictionary<string, XmlAttribute> dictionary_XmlAttribute = [];
             if(xmlNode.Attributes != null)
             {
                 foreach(XmlAttribute xmlAttribute in xmlNode.Attributes)
                 {
-                    string name = xmlAttribute?.LocalName;
+                    string? name = xmlAttribute?.LocalName;
 
                     if (string.IsNullOrWhiteSpace(name))
                     {
                         continue;
                     }
 
-                    dictionary_XmlAttribute[name] = xmlAttribute; 
+                    dictionary_XmlAttribute[name!] = xmlAttribute!; 
                 }
             }
 
-            List<PropertyInfo> propertyInfos = Query.PropertyInfos(abstractGML);
+            List<PropertyInfo>? propertyInfos = Query.PropertyInfos(abstractGML);
             if (propertyInfos == null || propertyInfos.Count == 0)
             {
                 return false;
@@ -67,9 +67,8 @@ namespace DiGi.GML
             {
                 if (dictionary_XmlAttribute.TryGetValue(propertyInfo.Name, out XmlAttribute xmlAttribute) && xmlAttribute != null)
                 {
-                    object value = null;
 
-                    if (!Query.TryConvert(xmlAttribute.Value, propertyInfo, out value))
+                    if (!Query.TryConvert(xmlAttribute.Value, propertyInfo, out object? value))
                     {
                         continue;
                     }
@@ -86,7 +85,7 @@ namespace DiGi.GML
                         continue;
                     }
 
-                    object value = null;
+                    object? value = null;
 
                     List<XmlNode> xmlNodes_Temp = xmlNodes.ConvertAll(x => x.ChildNodes[0]);
                     if (xmlNodes_Temp.TrueForAll(x => x is XmlText))
@@ -116,8 +115,7 @@ namespace DiGi.GML
                         }
                         else if (typeof(IList).IsAssignableFrom(type))
                         {
-                            IList list = Activator.CreateInstance(type) as IList;
-                            if (list != null)
+                            if (Activator.CreateInstance(type) is IList list)
                             {
                                 foreach (XmlNode xmlNode_Temp in xmlNodes_Temp)
                                 {
@@ -152,7 +150,7 @@ namespace DiGi.GML
                 return false;
             }
 
-            List<PropertyInfo> propertyInfos = abstractGML_Destination.PropertyInfos();
+            List<PropertyInfo>? propertyInfos = abstractGML_Destination.PropertyInfos();
             if (propertyInfos == null || propertyInfos.Count == 0)
             {
                 return true;
@@ -173,7 +171,7 @@ namespace DiGi.GML
                 return false;
             }
 
-            object value = propertyInfo.GetValue(abstractGML_Source);
+            object? value = propertyInfo.GetValue(abstractGML_Source);
 
             if(value is IAbstractGML)
             {
@@ -185,7 +183,11 @@ namespace DiGi.GML
             }
             else if(value is IList)
             {
-                IList list = Activator.CreateInstance(value.GetType()) as IList;
+                if(Activator.CreateInstance(value.GetType()) is not IList list)
+                {
+                    return false;
+                }
+
                 foreach (object @object in (IEnumerable)value) 
                 { 
                     if(@object is IAbstractGML)

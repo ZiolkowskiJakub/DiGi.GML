@@ -8,7 +8,7 @@ namespace DiGi.GML
 {
     public static partial class Convert
     {
-        public static List<T> ToGML<T>(string path) where T : IAbstractGML
+        public static List<T>? ToGML<T>(string? path) where T : IAbstractGML
         {
             if(string.IsNullOrWhiteSpace(path))
             {
@@ -21,26 +21,26 @@ namespace DiGi.GML
                 return null;
             }
 
-            XmlDocument xmlDocument = new XmlDocument();
+            XmlDocument xmlDocument = new();
             xmlDocument.LoadXml(text);
 
             return ToGML<T>(xmlDocument);
         }
 
-        public static List<T> ToGML<T>(Stream stream) where T : IAbstractGML
+        public static List<T>? ToGML<T>(Stream? stream) where T : IAbstractGML
         {
             if (stream == null)
             {
                 return null;
             }
 
-            XmlDocument xmlDocument = new XmlDocument();
+            XmlDocument xmlDocument = new();
             xmlDocument.Load(stream);
 
             return ToGML<T>(xmlDocument);
         }
 
-        public static List<T> ToGML<T>(XmlDocument xmlDocument) where T : IAbstractGML
+        public static List<T>? ToGML<T>(XmlDocument? xmlDocument) where T : IAbstractGML
         {
             if (xmlDocument == null || !xmlDocument.HasChildNodes)
             {
@@ -50,39 +50,34 @@ namespace DiGi.GML
             XmlNodeList xmlNodeList = xmlDocument.ChildNodes;
             if (xmlNodeList == null)
             {
-                return new List<T>();
+                return [];
             }
 
             int count = xmlNodeList.Count;
             if (count == 0)
             {
-                return new List<T>();
+                return [];
             }
 
-            List<T> result = Enumerable.Repeat<T>(default, count).ToList();
-
-            for (int i = 0; i < xmlNodeList.Count; i++)//Parallel.For(0, count, i => 
+            List<T> result = [];
+            for (int i = 0; i < xmlNodeList.Count; i++)
             {
-                string name = xmlNodeList[i]?.LocalName;
+                string? name = xmlNodeList[i]?.LocalName;
 
                 if (string.IsNullOrWhiteSpace(name) || name == "xml")
                 {
-                    //return;
                     continue;
                 }
 
-                IAbstractGML abstractGML = Create.AbstractGML(xmlNodeList[i]);
-                if (!(abstractGML is T))
+                IAbstractGML? abstractGML = Create.AbstractGML(xmlNodeList[i]);
+                if (abstractGML is not T t)
                 {
-                    //return;
                     continue;
                 }
 
-                result.Add((T)abstractGML);
+                result.Add(t);
 
-            }//);
-
-            result.RemoveAll(x => x == null);
+            }
 
             return result;
         }

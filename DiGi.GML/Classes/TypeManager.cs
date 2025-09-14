@@ -7,26 +7,23 @@ namespace DiGi.GML.Classes
 {
     public class TypeManager
     {
-        private Dictionary<string, Type> dictionary = null;
+        private Dictionary<string, Type?> dictionary = [];
 
         public TypeManager() 
         {
 
         }
 
-        public Type GetType(string name, bool update = true)
+        public Type? GetType(string? name, bool update = true)
         {
             if(string.IsNullOrWhiteSpace(name))
             {
                 return null;
             }
 
-            if(dictionary == null)
-            {
-                dictionary = new Dictionary<string, Type>();
-            }
+            dictionary ??= [];
 
-            if(dictionary.TryGetValue(name, out Type type))
+            if(dictionary.TryGetValue(name!, out Type? type))
             {
                 return type;
             }
@@ -58,7 +55,7 @@ namespace DiGi.GML.Classes
 
             if(update)
             {
-                dictionary[name] = null;
+                dictionary[name!] = null;
             }
 
             return null;

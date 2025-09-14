@@ -11,11 +11,11 @@ namespace DiGi.GML
     {
         public static TypeManager TypeManager()
         {
-            List<Assembly> assemblies_Loaded = AppDomain.CurrentDomain.GetAssemblies().ToList();
-            string[] paths_LadedAssemblies = assemblies_Loaded.Select(x => x.Location).ToArray();
-            IEnumerable<string> paths_Referenced = Assembly.GetEntryAssembly()?.GetReferencedAssemblies().Select(x => Assembly.Load(x).Location).ToArray() ?? Array.Empty<string>();
+            List<Assembly>? assemblies_Loaded = [.. AppDomain.CurrentDomain.GetAssemblies()];
+            string[]? paths_LadedAssemblies = [.. assemblies_Loaded.Select(x => x.Location)];
+            IEnumerable<string> paths_Referenced = Assembly.GetEntryAssembly()?.GetReferencedAssemblies().Select(x => Assembly.Load(x).Location).ToArray() ?? [];
 
-            List<string> paths_ToLoad = paths_Referenced.Where(x => !paths_LadedAssemblies.Contains(x)).ToList();
+            List<string> paths_ToLoad = [.. paths_Referenced.Where(x => !paths_LadedAssemblies.Contains(x))];
 
             string directory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             foreach (string path in Directory.GetFiles(directory, "*.dll"))

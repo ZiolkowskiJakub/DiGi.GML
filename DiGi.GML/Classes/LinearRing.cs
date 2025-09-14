@@ -4,6 +4,6 @@ namespace DiGi.GML.Classes
 {
     public class LinearRing : Ring
     {
-        public List<double> posList { get; set; }
+        public List<double> posList { get; set; } = [];
     }
 }
