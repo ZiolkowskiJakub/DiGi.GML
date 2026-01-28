@@ -1,7 +1,6 @@
 ﻿using DiGi.GML.Interfaces;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Xml;
 
 namespace DiGi.GML
@@ -10,13 +9,13 @@ namespace DiGi.GML
     {
         public static List<T>? ToGML<T>(string? path) where T : IAbstractGML
         {
-            if(string.IsNullOrWhiteSpace(path))
+            if (string.IsNullOrWhiteSpace(path))
             {
                 return null;
             }
 
             string text = File.ReadAllText(path);
-            if(string.IsNullOrWhiteSpace(text))
+            if (string.IsNullOrWhiteSpace(text))
             {
                 return null;
             }
@@ -76,7 +75,6 @@ namespace DiGi.GML
                 }
 
                 result.Add(t);
-
             }
 
             return result;

@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using DiGi.GML.Classes;
+using DiGi.GML.Interfaces;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Xml;
-using DiGi.GML.Interfaces;
-using System.Collections;
-using System;
-using DiGi.GML.Classes;
 
 namespace DiGi.GML
 {
@@ -18,7 +18,7 @@ namespace DiGi.GML
             }
 
             Dictionary<string, List<XmlNode>> dictionary_XmlNodes = [];
-            if(xmlNode.HasChildNodes)
+            if (xmlNode.HasChildNodes)
             {
                 foreach (XmlNode xmlNode_Child in xmlNode.ChildNodes)
                 {
@@ -39,11 +39,10 @@ namespace DiGi.GML
                 }
             }
 
-
             Dictionary<string, XmlAttribute> dictionary_XmlAttribute = [];
-            if(xmlNode.Attributes != null)
+            if (xmlNode.Attributes != null)
             {
-                foreach(XmlAttribute xmlAttribute in xmlNode.Attributes)
+                foreach (XmlAttribute xmlAttribute in xmlNode.Attributes)
                 {
                     string? name = xmlAttribute?.LocalName;
 
@@ -52,7 +51,7 @@ namespace DiGi.GML
                         continue;
                     }
 
-                    dictionary_XmlAttribute[name!] = xmlAttribute!; 
+                    dictionary_XmlAttribute[name!] = xmlAttribute!;
                 }
             }
 
@@ -67,7 +66,6 @@ namespace DiGi.GML
             {
                 if (dictionary_XmlAttribute.TryGetValue(propertyInfo.Name, out XmlAttribute xmlAttribute) && xmlAttribute != null)
                 {
-
                     if (!Query.TryConvert(xmlAttribute.Value, propertyInfo, out object? value))
                     {
                         continue;
@@ -145,7 +143,7 @@ namespace DiGi.GML
 
         public static bool Update<T>(this T abstractGML_Source, T abstractGML_Destination) where T : IAbstractGML
         {
-            if(abstractGML_Source == null || abstractGML_Destination == null)
+            if (abstractGML_Source == null || abstractGML_Destination == null)
             {
                 return false;
             }
@@ -156,7 +154,7 @@ namespace DiGi.GML
                 return true;
             }
 
-            foreach(PropertyInfo propertyInfo in propertyInfos)
+            foreach (PropertyInfo propertyInfo in propertyInfos)
             {
                 Update(abstractGML_Source, abstractGML_Destination, propertyInfo);
             }
@@ -173,24 +171,23 @@ namespace DiGi.GML
 
             object? value = propertyInfo.GetValue(abstractGML_Source);
 
-            if(value is IAbstractGML)
+            if (value is IAbstractGML)
             {
                 value = ((AbstractGML)value).Clone();
             }
-            else if(value is string)
+            else if (value is string)
             {
-
             }
-            else if(value is IList)
+            else if (value is IList)
             {
-                if(Activator.CreateInstance(value.GetType()) is not IList list)
+                if (Activator.CreateInstance(value.GetType()) is not IList list)
                 {
                     return false;
                 }
 
-                foreach (object @object in (IEnumerable)value) 
-                { 
-                    if(@object is IAbstractGML)
+                foreach (object @object in (IEnumerable)value)
+                {
+                    if (@object is IAbstractGML)
                     {
                         list.Add(((AbstractGML)@object).Clone());
                     }

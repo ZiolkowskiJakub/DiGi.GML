@@ -7,7 +7,7 @@ namespace DiGi.GML
     {
         public static T? Clone<T>(this T? abstractGML) where T : IAbstractGML
         {
-            if(abstractGML == null)
+            if (abstractGML == null)
             {
                 return default;
             }

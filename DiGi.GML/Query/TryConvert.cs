@@ -84,7 +84,7 @@ namespace DiGi.GML
             }
             else if (type_Temp == typeof(double))
             {
-                if(double.TryParse(text, NumberStyles.Any, CultureInfo.CurrentCulture, out double @double))
+                if (double.TryParse(text, NumberStyles.Any, CultureInfo.CurrentCulture, out double @double))
                 {
                     value = nullable ? @double as double? : @double;
                     return true;
@@ -98,7 +98,7 @@ namespace DiGi.GML
             else if (typeof(IList).IsAssignableFrom(type_Temp))
             {
                 if (text != null && type_Temp.GenericTypeArguments.Length != 0)
-                {  
+                {
                     Type genericType = type.GenericTypeArguments[0];
 
                     string[] texts = genericType == typeof(double) ? text.Split(' ') : text.Split('\t');
@@ -127,7 +127,6 @@ namespace DiGi.GML
             }
 
             return false;
-
         }
     }
 }

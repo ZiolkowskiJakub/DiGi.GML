@@ -1,5 +1,4 @@
-﻿
-namespace DiGi.GML.Interfaces
+﻿namespace DiGi.GML.Interfaces
 {
     public interface IFeatureMember
     {

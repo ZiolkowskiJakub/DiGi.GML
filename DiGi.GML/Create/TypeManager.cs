@@ -20,12 +20,12 @@ namespace DiGi.GML
             string directory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             foreach (string path in Directory.GetFiles(directory, "*.dll"))
             {
-                if(paths_LadedAssemblies.Contains(path))
+                if (paths_LadedAssemblies.Contains(path))
                 {
                     continue;
                 }
 
-                if(paths_ToLoad.Contains(path))
+                if (paths_ToLoad.Contains(path))
                 {
                     continue;
                 }
@@ -41,9 +41,7 @@ namespace DiGi.GML
                 }
                 catch
                 {
-
                 }
-
             }
 
             return new TypeManager();

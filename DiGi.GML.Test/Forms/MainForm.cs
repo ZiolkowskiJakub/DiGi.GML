@@ -13,11 +13,11 @@ namespace DiGi.GML.Test
         {
             string? path = null;
 
-            using(OpenFileDialog openFileDialog = new())
+            using (OpenFileDialog openFileDialog = new())
             {
                 openFileDialog.Title = "Select GML File";
                 openFileDialog.Filter = "GML File (*.gml)|*.gml|All files (*.*)|*.*";
-                if(openFileDialog.ShowDialog() != DialogResult.OK)
+                if (openFileDialog.ShowDialog() != DialogResult.OK)
                 {
                     return;
                 }
@@ -25,7 +25,7 @@ namespace DiGi.GML.Test
                 path = openFileDialog.FileName;
             }
 
-            if(string.IsNullOrWhiteSpace(path) || !Path.Exists(path))
+            if (string.IsNullOrWhiteSpace(path) || !Path.Exists(path))
             {
                 return;
             }

@@ -25,7 +25,7 @@ namespace DiGi.GML
             }
 
             object? @object = Activator.CreateInstance(type);
-            if(@object is not T t)
+            if (@object is not T t)
             {
                 return default;
             }

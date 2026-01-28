@@ -7,20 +7,20 @@ namespace DiGi.GML
     public static partial class Query
     {
         public static Dictionary<string, PropertyInfo>? PropertyInfoDictionary(this IAbstractGML? abstractGML)
-        { 
-            if(abstractGML == null)
+        {
+            if (abstractGML == null)
             {
                 return null;
             }
 
             List<PropertyInfo>? propertyInfos = abstractGML.PropertyInfos();
-            if(propertyInfos == null)
+            if (propertyInfos == null)
             {
                 return null;
             }
 
             Dictionary<string, PropertyInfo> result = [];
-            foreach (PropertyInfo propertyInfo in propertyInfos) 
+            foreach (PropertyInfo propertyInfo in propertyInfos)
             {
                 result[propertyInfo.Name] = propertyInfo;
             }

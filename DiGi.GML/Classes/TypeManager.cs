@@ -9,21 +9,20 @@ namespace DiGi.GML.Classes
     {
         private Dictionary<string, Type?> dictionary = [];
 
-        public TypeManager() 
+        public TypeManager()
         {
-
         }
 
         public Type? GetType(string? name, bool update = true)
         {
-            if(string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(name))
             {
                 return null;
             }
 
             dictionary ??= [];
 
-            if(dictionary.TryGetValue(name!, out Type? type))
+            if (dictionary.TryGetValue(name!, out Type? type))
             {
                 return type;
             }
@@ -39,12 +38,12 @@ namespace DiGi.GML.Classes
                         continue;
                     }
 
-                    if(type_Temp.Name != name)
+                    if (type_Temp.Name != name)
                     {
                         continue;
                     }
 
-                    if(update)
+                    if (update)
                     {
                         dictionary[name] = type_Temp;
                     }
@@ -53,7 +52,7 @@ namespace DiGi.GML.Classes
                 }
             }
 
-            if(update)
+            if (update)
             {
                 dictionary[name!] = null;
             }

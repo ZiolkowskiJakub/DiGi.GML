@@ -12,13 +12,12 @@ namespace DiGi.GML
             Type type = @enum.GetType();
 
             Type type_Temp = Nullable.GetUnderlyingType(type);
-            if(type_Temp != null)
+            if (type_Temp != null)
             {
                 type = type_Temp;
             }
 
             FieldInfo fieldInfo = type.GetField(@enum.ToString());
-
 
             if (fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false) is DescriptionAttribute[] descriptionAttributes && descriptionAttributes.Any())
             {
