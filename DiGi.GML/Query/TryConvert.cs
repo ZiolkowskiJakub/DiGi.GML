@@ -1,4 +1,4 @@
-﻿using DiGi.GML.Interfaces;
+using DiGi.GML.Interfaces;
 using System;
 using System.Collections;
 using System.Globalization;
@@ -8,11 +8,25 @@ namespace DiGi.GML
 {
     public static partial class Query
     {
+        /// <summary>
+        /// Attempts to convert a string representation of a value to an object based on the provided property information.
+        /// </summary>
+        /// <param name="text">The string input to be converted.</param>
+        /// <param name="propertyInfo">The property whose type determines the target conversion type.</param>
+        /// <param name="value">When this method returns, contains the converted value if successful; otherwise, null.</param>
+        /// <returns>True if the conversion was successful; otherwise, false.</returns>
         public static bool TryConvert(string? text, PropertyInfo? propertyInfo, out object? value)
         {
             return TryConvert(text, propertyInfo?.PropertyType, out value);
         }
 
+        /// <summary>
+        /// Attempts to convert a string representation of a value to an object of the specified type.
+        /// </summary>
+        /// <param name="text">The string input to be converted.</param>
+        /// <param name="type">The target type for conversion.</param>
+        /// <param name="value">When this method returns, contains the converted value if successful; otherwise, null.</param>
+        /// <returns>True if the conversion was successful; otherwise, false.</returns>
         public static bool TryConvert(string? text, Type? type, out object? value)
         {
             value = null;

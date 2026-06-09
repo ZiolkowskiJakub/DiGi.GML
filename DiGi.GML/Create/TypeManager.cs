@@ -1,4 +1,4 @@
-﻿using DiGi.GML.Classes;
+using DiGi.GML.Classes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +9,12 @@ namespace DiGi.GML
 {
     public static partial class Create
     {
+        /// <summary>
+        /// Initializes and returns a new instance of the <see cref="TypeManager"/>, 
+        /// ensuring that all assemblies in the current application domain, referenced assemblies, 
+        /// and DLLs located in the entry assembly's directory are loaded.
+        /// </summary>
+        /// <returns>A newly created instance of the <see cref="TypeManager"/> class.</returns>
         public static TypeManager TypeManager()
         {
             List<Assembly>? assemblies_Loaded = [.. AppDomain.CurrentDomain.GetAssemblies()];

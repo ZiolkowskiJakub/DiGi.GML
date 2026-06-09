@@ -1,4 +1,4 @@
-﻿using DiGi.GML.Interfaces;
+using DiGi.GML.Interfaces;
 using System;
 using System.Xml;
 
@@ -6,11 +6,22 @@ namespace DiGi.GML
 {
     public static partial class Create
     {
+        /// <summary>
+        /// Creates an instance of a class implementing <see cref="IAbstractGML"/> based on the provided XML node.
+        /// </summary>
+        /// <param name="xmlNode">The XML node to be converted into an <see cref="IAbstractGML"/> object.</param>
+        /// <returns>An implementation of <see cref="IAbstractGML"/> if successful; otherwise, null.</returns>
         public static IAbstractGML? AbstractGML(this XmlNode? xmlNode)
         {
             return AbstractGML<IAbstractGML>(xmlNode);
         }
 
+        /// <summary>
+        /// Creates an instance of a class implementing the specified generic type <typeparamref name="T"/> based on the provided XML node.
+        /// </summary>
+        /// <typeparam name="T">The specific type that implements <see cref="IAbstractGML"/>.</typeparam>
+        /// <param name="xmlNode">The XML node to be converted into an object of type <typeparamref name="T"/>.</param>
+        /// <returns>An instance of type <typeparamref name="T"/> if successful; otherwise, null.</returns>
         public static T? AbstractGML<T>(this XmlNode? xmlNode) where T : IAbstractGML
         {
             if (xmlNode == null)

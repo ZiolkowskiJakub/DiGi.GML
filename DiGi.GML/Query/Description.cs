@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -7,6 +7,11 @@ namespace DiGi.GML
 {
     public static partial class Query
     {
+        /// <summary>
+        /// Retrieves the description of an enumeration value, prioritizing the value defined in the <see cref="DescriptionAttribute"/>.
+        /// </summary>
+        /// <param name="enum">The enumeration value to extract the description from.</param>
+        /// <returns>The string value of the <see cref="DescriptionAttribute"/> if present; otherwise, the string representation of the enum member.</returns>
         public static string Description(this Enum @enum)
         {
             Type type = @enum.GetType();

@@ -1,12 +1,19 @@
-﻿using System;
+using System;
 
 namespace DiGi.GML
 {
     public static partial class Query
     {
+        /// <summary>
+        /// Attempts to convert a string representation to an enumeration value of type T based on the member's description.
+        /// </summary>
+        /// <typeparam name="T">The enumeration type.</typeparam>
+        /// <param name="text">The string text to be converted.</param>
+        /// <param name="enum">When this method returns, contains the enumeration value if conversion succeeded, or the default value otherwise.</param>
+        /// <returns>True if the conversion was successful; otherwise, false.</returns>
         public static bool TryGetEnum<T>(this string? text, out T? @enum) where T : Enum
         {
-            bool result = TryGetEnum(text, typeof(T), out Enum? @enum_Temp);
+            bool result = TryGetEnum(text, typeof(T), out Enum? enum_Temp);
 
             if (enum_Temp is T t)
             {
@@ -21,6 +28,13 @@ namespace DiGi.GML
             return result;
         }
 
+        /// <summary>
+        /// Attempts to convert a string representation to an enumeration value of the specified type based on the member's description.
+        /// </summary>
+        /// <param name="text">The string text to be converted.</param>
+        /// <param name="type">The Type object that represents the enumeration type.</param>
+        /// <param name="enum">When this method returns, contains the enumeration value if conversion succeeded, or the default value otherwise.</param>
+        /// <returns>True if the conversion was successful; otherwise, false.</returns>
         public static bool TryGetEnum(this string? text, Type? type, out Enum? @enum)
         {
             @enum = default;

@@ -1,4 +1,4 @@
-﻿using DiGi.GML.Classes;
+using DiGi.GML.Classes;
 using DiGi.GML.Interfaces;
 using System;
 using System.Collections;
@@ -10,6 +10,12 @@ namespace DiGi.GML
 {
     public static partial class Modify
     {
+        /// <summary>
+        /// Updates the properties of an <see cref="IAbstractGML"/> instance based on the values provided in an <see cref="XmlNode"/>.
+        /// </summary>
+        /// <param name="abstractGML">The GML object to be updated.</param>
+        /// <param name="xmlNode">The XML node containing the source data for the update.</param>
+        /// <returns>True if at least one property was successfully updated; otherwise, false.</returns>
         public static bool Update(this IAbstractGML abstractGML, XmlNode xmlNode)
         {
             if (xmlNode == null || abstractGML == null)
@@ -141,6 +147,13 @@ namespace DiGi.GML
             return result;
         }
 
+        /// <summary>
+        /// Updates the properties of a destination GML object using values from a source GML object of the same type.
+        /// </summary>
+        /// <typeparam name="T">A type that implements <see cref="IAbstractGML"/>.</typeparam>
+        /// <param name="abstractGML_Source">The source GML object containing the data to copy.</param>
+        /// <param name="abstractGML_Destination">The destination GML object to be updated.</param>
+        /// <returns>True if the update process completed; otherwise, false.</returns>
         public static bool Update<T>(this T abstractGML_Source, T abstractGML_Destination) where T : IAbstractGML
         {
             if (abstractGML_Source == null || abstractGML_Destination == null)
@@ -162,6 +175,14 @@ namespace DiGi.GML
             return true;
         }
 
+        /// <summary>
+        /// Updates a specific property of a destination GML object using the value from the corresponding property of a source GML object.
+        /// </summary>
+        /// <typeparam name="T">A type that implements <see cref="IAbstractGML"/>.</typeparam>
+        /// <param name="abstractGML_Source">The source GML object containing the data to copy.</param>
+        /// <param name="abstractGML_Destination">The destination GML object to be updated.</param>
+        /// <param name="propertyInfo">The property information of the member to be updated.</param>
+        /// <returns>True if the property was successfully updated; otherwise, false.</returns>
         public static bool Update<T>(this T abstractGML_Source, T abstractGML_Destination, PropertyInfo propertyInfo)
         {
             if (abstractGML_Source == null || abstractGML_Source == null)
