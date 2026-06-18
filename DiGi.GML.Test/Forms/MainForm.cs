@@ -4,6 +4,9 @@ namespace DiGi.GML.Test
 {
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainForm"/> class and initializes the form components.
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
