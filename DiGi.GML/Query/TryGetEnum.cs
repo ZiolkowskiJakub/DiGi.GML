@@ -53,7 +53,7 @@ namespace DiGi.GML
             foreach (Enum enum_Temp in array)
             {
                 string? text_Temp = Description(enum_Temp).Trim();
-                if (text_Temp.Equals(text))
+                if (text_Temp.Equals(text, StringComparison.Ordinal))
                 {
                     @enum = enum_Temp;
                     return true;

@@ -1,12 +1,15 @@
 root = true
 
+# Global settings for all files in the project
+[*]
 # Compiler Diagnostic Severity Overrides
 dotnet_diagnostic.IDE0130.severity = none
 dotnet_diagnostic.IDE0290.severity = none
 dotnet_diagnostic.CS1591.severity = none
+dotnet_diagnostic.IDE1006.severity = none
+dotnet_diagnostic.CA1707.severity = none
+dotnet_diagnostic.CA1711.severity = none
 
-# Global settings for all files in the project
-[*]
 end_of_line = crlf
 charset = utf-8
 trim_trailing_whitespace = true
