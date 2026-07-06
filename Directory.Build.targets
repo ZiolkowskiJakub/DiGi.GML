@@ -1,4 +1,5 @@
 <Project>
+  <!-- API Documentation Generation -->
   <PropertyGroup Condition="'$(IsTestProject)' != 'true' And '$(MSBuildProjectExtension)' == '.csproj'">
     <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
@@ -13,4 +14,19 @@
     <DefaultDocumentationGeneratedPages>Namespaces</DefaultDocumentationGeneratedPages>
     <DefaultDocumentationConfigurationFile>$(MSBuildThisFileDirectory)DefaultDocumentation.json</DefaultDocumentationConfigurationFile>
   </PropertyGroup>
+
+  <!-- Centralized File Copying Targets for Runtime Assets -->
+  <Target Name="CopyFiles" AfterTargets="Build" Condition="'$(MSBuildProjectExtension)' == '.csproj'">
+    <ItemGroup>
+      <_Files Include="$(MSBuildThisFileDirectory)files\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_Files)" DestinationFiles="@(_Files->'$(OutputPath)%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" Condition="Exists('$(MSBuildThisFileDirectory)files')" />
+  </Target>
+
+  <Target Name="CopyUserFiles" AfterTargets="Build" Condition="'$(MSBuildProjectExtension)' == '.csproj'">
+    <ItemGroup>
+      <_UserFiles Include="$(MSBuildThisFileDirectory)user files\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_UserFiles)" DestinationFiles="@(_UserFiles->'$(OutputPath)%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" Condition="Exists('$(MSBuildThisFileDirectory)user files')" />
+  </Target>
 </Project>

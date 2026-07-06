@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Major>0</Major>
     <Minor>8</Minor>
-	<Build>7</Build>
+    <Build>7</Build>
 
     <!-- Assembly binding version (keep stable for compatibility) -->
     <AssemblyVersion>$(Major).$(Minor).$(Build)</AssemblyVersion>
@@ -13,13 +13,25 @@
     <!-- File version (changes every build) -->
     <FileVersion>$(Major).$(Minor).$(Build)</FileVersion>
 
-    <!-- Build = yyyyMMdd.HHmm (UTC) -->
-	<Revision>$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</Revision>
+    <!-- Build = yyyyMMddHHmmss (UTC) -->
+    <Revision>$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</Revision>
 
     <!-- Informational version (human-readable, can include git commit later) -->
     <InformationalVersion>$(Major).$(Minor).$(Build).$(Revision)</InformationalVersion>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Configure standard project settings for C# 12+ / Visual Studio 2026 -->
+    <LangVersion>12.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+
+  <!-- Enable XML Documentation file generation for all non-test C# projects -->
+  <PropertyGroup Condition="'$(IsTestProject)' != 'true' And '$(MSBuildProjectExtension)' == '.csproj'">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
 </Project>
-
-
-
