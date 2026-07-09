@@ -1,4 +1,4 @@
-#### [DiGi\.GML](index.md 'index')
+#### [DiGi\.GML](DiGi.GML.Overview.md 'DiGi\.GML\.Overview')
 
 ## DiGi\.GML\.Interfaces Namespace
 ### Interfaces
